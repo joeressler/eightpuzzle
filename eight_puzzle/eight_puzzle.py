@@ -83,3 +83,12 @@ def eight_puzzle(init_boardstr, algorithm, depth_limit = -1, heuristic = None):
         show_steps = input('Show the moves (y/n)? ')
         if show_steps == 'y':
             soln.print_moves_to()
+    
+def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
+    """takes the following inputs
+    filename - a string specifying the name of a text file in which each line is a digit string for an eight puzzle.
+    algorithm - a string that specifies which state-space search algorithm should be used to solve the puzzles ('random', 'BFS', 'DFS', 'Greedy', or 'A*')
+    depth_limit - an integer that can be used to specify an optional parameter for the depth limit
+    heuristic - an optional parameter which will be used to pass in a reference to the heuristic function to use.
+    """
+    
