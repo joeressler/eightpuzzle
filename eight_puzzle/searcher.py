@@ -102,7 +102,13 @@ class BFSearcher(Searcher):
         s = self.states[0]
         self.states.remove(s)
         return s
-    
+
+class DFSearcher(Searcher):
+
+    def next_state(self):
+        s = self.states[-1]
+        self.states.remove(s)
+        return s
 
 def h0(state):
     """ a heuristic function that always returns 0 """
@@ -116,7 +122,16 @@ class GreedySearcher(Searcher):
         search on an Eight Puzzle.
     """
     ### Add your GreedySearcher method definitions here. ###
-
+    def __init__(self, depth_limit, heuristic):
+        """ constructor for a GreedySearcher object
+            inputs:
+             * depth_limit - the depth limit of the searcher
+             * heuristic - a reference to the function that should be used 
+             when computing the priority of a state
+        """
+        # add code that calls the superclass constructor
+        super.__init__(depth_limit)
+        self.heuristic = heuristic
 
     def __repr__(self):
         """ returns a string representation of the GreedySearcher object
@@ -129,5 +144,44 @@ class GreedySearcher(Searcher):
         s += 'heuristic ' + self.heuristic.__name__
         return s
 
+    def priority(self, state):
+        """ returns priority
+        """
+        num_misplaced_tiles = state.board.num_misplaced()
+        priority = -1 * num_misplaced_tiles
+        return priority
+
+    def add_state(self, state):
+        """overrides add_state
+        """
+        prio = self.priority(state)
+        sublist = [prio, state]
+        return sublist
+    
+    def next_state(self):
+        """overrides next_state
+        """
+        smax = max(self.states)
+        self.states.remove(smax)
+        return smax
+
 
 ### Add your AStarSeacher class definition below. ###
+
+class AStarSearcher(Searcher):
+    def __init__(self, depth_limit, heuristic):
+        """ constructor for a AStarSearcher object
+            inputs:
+             * depth_limit - the depth limit of the searcher
+             * heuristic - a reference to the function that should be used 
+             when computing the priority of a state
+        """
+        # add code that calls the superclass constructor
+        super.__init__(depth_limit)
+        self.heuristic = heuristic
+    
+    def priority(self, state):
+        """ returns priority
+        """
+        priority = -1 * (self.heuristic + state.num_moves)
+        return priority

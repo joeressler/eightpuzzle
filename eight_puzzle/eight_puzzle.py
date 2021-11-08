@@ -32,16 +32,14 @@ def create_searcher(algorithm, depth_limit = -1, heuristic = None):
     
     if algorithm == 'random':
         searcher = Searcher(depth_limit)
-## You will uncommment the following lines as you implement
-## other algorithms.
-    #elif algorithm == 'BFS':
-    #    searcher = BFSearcher(depth_limit)
-    #elif algorithm == 'DFS':
-    #    searcher = DFSearcher(depth_limit)
-    #elif algorithm == 'Greedy':
-    #    searcher = GreedySearcher(depth_limit, heuristic)
-    #elif algorithm == 'A*':
-    #    searcher = AStarSearcher(depth_limit, heuristic)
+    elif algorithm == 'BFS':
+        searcher = BFSearcher(depth_limit)
+    elif algorithm == 'DFS':
+        searcher = DFSearcher(depth_limit)
+    elif algorithm =='Greedy':
+        searcher = GreedySearcher(depth_limit, heuristic)
+    elif algorithm =='A*':
+        searcher = AStarSearcher(depth_limit, heuristic)
     else:  
         print('unknown algorithm:', algorithm)
 
