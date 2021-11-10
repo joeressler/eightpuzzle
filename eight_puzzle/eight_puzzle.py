@@ -91,4 +91,14 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
     depth_limit - an integer that can be used to specify an optional parameter for the depth limit
     heuristic - an optional parameter which will be used to pass in a reference to the heuristic function to use.
     """
-    
+    file = open(filename, 'r')
+    data = []
+    with file as topo_file:
+        for line in topo_file:
+            data += line.strip()
+    file.close()
+    for puzzle in data:
+        puzzsol = eight_puzzle(puzzle, algorithm, depth_limit, heuristic)
+
+
+

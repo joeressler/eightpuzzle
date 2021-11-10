@@ -130,7 +130,7 @@ class GreedySearcher(Searcher):
              when computing the priority of a state
         """
         # add code that calls the superclass constructor
-        super.__init__(depth_limit)
+        super().__init__(depth_limit)
         self.heuristic = heuristic
 
     def __repr__(self):
@@ -163,7 +163,7 @@ class GreedySearcher(Searcher):
         """
         smax = max(self.states)
         self.states.remove(smax)
-        return smax
+        return smax[1]
 
 
 ### Add your AStarSeacher class definition below. ###
@@ -177,7 +177,7 @@ class AStarSearcher(Searcher):
              when computing the priority of a state
         """
         # add code that calls the superclass constructor
-        super.__init__(depth_limit)
+        super().__init__(depth_limit)
         self.heuristic = heuristic
     
     def priority(self, state):
