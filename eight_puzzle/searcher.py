@@ -83,6 +83,7 @@ class Searcher:
         return s
     
     def find_solution(self, init_state):
+        """finds the solution of init_state"""
         self.add_states([init_state])
         while len(self.states) > 0:
             s = self.next_state()
@@ -99,6 +100,8 @@ class Searcher:
 class BFSearcher(Searcher):
 
     def next_state(self):
+        """overrides next_state
+        """
         s = self.states[0]
         self.states.remove(s)
         return s
@@ -106,6 +109,8 @@ class BFSearcher(Searcher):
 class DFSearcher(Searcher):
 
     def next_state(self):
+        """overrides next_state
+        """
         s = self.states[-1]
         self.states.remove(s)
         return s
@@ -116,6 +121,10 @@ def h0(state):
 
 ### Add your other heuristic functions here. ###
 
+def h1(state):
+    """ a heuristic function that returns the number
+    of misplaced tiles on the state's board """
+    return state.board.num_misplaced()
 
 class GreedySearcher(Searcher):
     """ A class for objects that perform an informed greedy state-space
@@ -147,8 +156,7 @@ class GreedySearcher(Searcher):
     def priority(self, state):
         """ returns priority
         """
-        num_misplaced_tiles = state.board.num_misplaced()
-        priority = -1 * num_misplaced_tiles
+        priority = -1 * self.heuristic(state)
         return priority
 
     def add_state(self, state):
@@ -156,7 +164,7 @@ class GreedySearcher(Searcher):
         """
         prio = self.priority(state)
         sublist = [prio, state]
-        return sublist
+        self.states.append(sublist)
     
     def next_state(self):
         """overrides next_state
@@ -183,5 +191,19 @@ class AStarSearcher(Searcher):
     def priority(self, state):
         """ returns priority
         """
-        priority = -1 * (self.heuristic + state.num_moves)
+        priority = -1 * (self.heuristic(state) + state.num_moves)
         return priority
+
+    def add_state(self, state):
+        """overrides add_state
+        """
+        prio = self.priority(state)
+        sublist = [prio, state]
+        self.states.append(sublist)
+    
+    def next_state(self):
+        """overrides next_state
+        """
+        smax = max(self.states)
+        self.states.remove(smax)
+        return smax[1]

@@ -72,12 +72,15 @@ class State:
         return True
     
     def is_goal(self):
+        """finds out of the self.board.tiles is the goal"""
         if self.board.tiles == GOAL_TILES:
             return True
         else:
             return False
     
     def generate_successors(self):
+        """generates the successor boards
+        of the current state's board"""
         successors = []
         for m in MOVES:
             copyboard = self.board.copy()
@@ -87,6 +90,8 @@ class State:
         return successors
     
     def print_moves_to(self):
+        """prints the moves from the initial state
+        to the current state"""
         state = self.predecessor
         if state == None:
             print('initial state:')
