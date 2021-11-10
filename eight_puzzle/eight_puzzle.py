@@ -109,9 +109,11 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
         try:
             soln = searcher.find_solution(init_state)
         except KeyboardInterrupt:
+            soln = None
             print('search terminated, ', end='')
         if soln == None:
             puzzstring = '%s: no solution' % (puzzle)
+            continue
         else:
             puzzstring = '%s: %d moves, %d states tested' % (puzzle, soln.num_moves, searcher.num_tested)
             puzzlenumber += 1
@@ -125,6 +127,6 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
     print()
     print('solved %d puzzles' % (puzzlenumber))
     if puzzlenumber > 0:
-        print('averages: %d, %d states tested') % (avgmoves, avgstates)
+        print('averages: %g moves, %g states tested' % (avgmoves, avgstates))
 
 
