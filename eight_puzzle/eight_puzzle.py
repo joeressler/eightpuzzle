@@ -91,14 +91,40 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
     depth_limit - an integer that can be used to specify an optional parameter for the depth limit
     heuristic - an optional parameter which will be used to pass in a reference to the heuristic function to use.
     """
+    
     file = open(filename, 'r')
     data = []
     with file as topo_file:
         for line in topo_file:
-            data += line.strip()
+            data += [line.strip()]
     file.close()
+    moves = []
+    states = []
+    puzzlenumber = 0
     for puzzle in data:
-        puzzsol = eight_puzzle(puzzle, algorithm, depth_limit, heuristic)
+        init_board = Board(puzzle)
+        init_state = State(init_board, None, 'init')
+        searcher = create_searcher(algorithm, depth_limit, heuristic)
+        soln = None
+        try:
+            soln = searcher.find_solution(init_state)
+        except KeyboardInterrupt:
+            print('search terminated, ', end='')
+        if soln == None:
+            puzzstring = '%s: no solution' % (puzzle)
+        else:
+            puzzstring = '%s: %d moves, %d states tested' % (puzzle, soln.num_moves, searcher.num_tested)
+            puzzlenumber += 1
+        moves.append(soln.num_moves)
+        states.append(searcher.num_tested)
+        
+        print(puzzstring)
 
+    avgmoves = sum(moves) / len(moves)
+    avgstates = sum(states) / len(states)
+    print()
+    print('solved %d puzzles' % (puzzlenumber))
+    if puzzlenumber > 0:
+        print('averages: %d, %d states tested') % (avgmoves, avgstates)
 
 
