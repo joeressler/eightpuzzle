@@ -101,6 +101,7 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
     moves = []
     states = []
     puzzlenumber = 0
+    term = ''
     for puzzle in data:
         init_board = Board(puzzle)
         init_state = State(init_board, None, 'init')
@@ -110,20 +111,24 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
             soln = searcher.find_solution(init_state)
         except KeyboardInterrupt:
             soln = None
-            print('search terminated, ', end='')
-        if soln == None:
-            puzzstring = '%s: no solution' % (puzzle)
-            continue
-        else:
+            term = 'search terminated,'
+        if soln != None:
             puzzstring = '%s: %d moves, %d states tested' % (puzzle, soln.num_moves, searcher.num_tested)
             puzzlenumber += 1
+        else:
+            if term == 'search terminated,':
+                puzzstring = '%s: %s no solution' % (puzzle, term)
+            else:
+                puzzstring = '%s: no solution' % (puzzle)
+            print(puzzstring)
+            continue
         moves.append(soln.num_moves)
         states.append(searcher.num_tested)
         
         print(puzzstring)
-
-    avgmoves = sum(moves) / len(moves)
-    avgstates = sum(states) / len(states)
+    if len(moves) > 0 and len(states) > 0:
+        avgmoves = sum(moves) / len(moves)
+        avgstates = sum(states) / len(states)
     print()
     print('solved %d puzzles' % (puzzlenumber))
     if puzzlenumber > 0:
