@@ -187,6 +187,17 @@ class AStarSearcher(Searcher):
         # add code that calls the superclass constructor
         super().__init__(depth_limit)
         self.heuristic = heuristic
+        
+    def __repr__(self):
+        """ returns a string representation of the A*Searcher object
+            referred to by self.
+        """
+        # You should *NOT* change this method.
+        s = type(self).__name__ + ': '
+        s += str(len(self.states)) + ' untested, '
+        s += str(self.num_tested) + ' tested, '
+        s += 'heuristic ' + self.heuristic.__name__
+        return s
     
     def priority(self, state):
         """ returns priority
