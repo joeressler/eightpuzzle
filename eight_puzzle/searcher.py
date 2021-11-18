@@ -126,6 +126,19 @@ def h1(state):
     of misplaced tiles on the state's board """
     return state.board.num_misplaced()
 
+def h2(state):
+    GOAL_TILES = [[0, 1, 2],
+              [3, 4, 5],
+              [6, 7, 8]]
+    distance = 0
+    for r in range(3):
+        for c in range(3):
+            for goalR in range(3):
+                for goalC in range(3):
+                    if state.board.tiles[r][c] == GOAL_TILES[goalR][goalC]:
+                        distance += abs(goalR-r) + abs(goalC-c)
+    return distance
+
 class GreedySearcher(Searcher):
     """ A class for objects that perform an informed greedy state-space
         search on an Eight Puzzle.

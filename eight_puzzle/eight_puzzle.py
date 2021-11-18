@@ -135,61 +135,36 @@ def process_file(filename, algorithm, depth_limit = -1, heuristic = None):
         print('averages: %g moves, %g states tested' % (avgmoves, avgstates))
 
 
-def test(file, n):
-    if file == 5:
-        if n == 1:
-            print('5_moves random')
-            process_file('5_moves.txt', 'random', -1, h1)
-        elif n == 2:
-            print('5_moves BFS')
-            process_file('5_moves.txt', 'BFS', -1, h1)
-        elif n == 3:
-            print('5_moves DFS 20')
-            process_file('5_moves.txt', 'DFS', 20, h1)
-        elif n == 4:
-            print('5_moves DFS 50')
-            process_file('5_moves.txt', 'DFS', 50, h1)
-        elif n == 5:
-            print('5_moves Greedy')
-            process_file('5_moves.txt', 'Greedy', -1, h1)
-        elif n == 6:
-            print('5_moves AStar')
-            process_file('5_moves.txt', 'A*', -1, h1)
-    elif file == 10:
-        if n == 1:
-            print('10_moves random')
-            process_file('10_moves.txt', 'random', -1, h1)
-        elif n == 2:
-            print('10_moves BFS')
-            process_file('10_moves.txt', 'BFS', -1, h1)
-        elif n == 3:
-            print('10_moves DFS 20')
-            process_file('10_moves.txt', 'DFS', 20, h1)
-        elif n == 4:
-            print('10_moves DFS 50')
-            process_file('10_moves.txt', 'DFS', 50, h1)
-        elif n == 5:
-            print('10_moves Greedy')
-            process_file('10_moves.txt', 'Greedy', -1, h1)
-        elif n == 6:
-            print('10_moves AStar')
-            process_file('10_moves.txt', 'A*', -1, h1)
-    elif file == 15:
-        if n == 1:
-            print('15_moves random')
-            process_file('15_moves.txt', 'random', -1, h1)
-        elif n == 2:
-            print('15_moves BFS')
-            process_file('15_moves.txt', 'BFS', -1, h1)
-        elif n == 3:
-            print('15_moves DFS 20')
-            process_file('15_moves.txt', 'DFS', 20, h1)
-        elif n == 4:
-            print('15_moves DFS 50')
-            process_file('15_moves.txt', 'DFS', 50, h1)
-        elif n == 5:
-            print('15_moves Greedy')
-            process_file('15_moves.txt', 'Greedy', -1, h1)
-        elif n == 6:
-            print('15_moves AStar')
-            process_file('15_moves.txt', 'A*', -1, h1)
+def test(n):
+    if n == 'test':
+        if False:
+            print('Greedy 18')
+            process_file('18_moves.txt', 'Greedy', -1, h1)
+            print()
+            print()
+            print('Greedy 21')
+            process_file('21_moves.txt', 'Greedy', -1, h1)
+            print()
+            print()
+            print('Greedy 24')
+            process_file('24_moves.txt', 'Greedy', -1, h1)
+            print()
+            print()
+            print('Greedy 27')
+            process_file('27_moves.txt', 'Greedy', -1, h1)
+            print('A* 18')
+            process_file('18_moves.txt', 'A*', -1, h1)
+            print()
+            print()
+            print('A* 21')
+            process_file('21_moves.txt', 'A*', -1, h1)
+            print()
+            print()
+        print('A* 24')
+        process_file('24_moves.txt', 'A*', -1, h1)
+        print()
+        print()
+        print('A* 27')
+        process_file('27_moves.txt', 'A*', -1, h1)
+    else:
+        print('your n is not an accepted algorithm')
